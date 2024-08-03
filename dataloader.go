@@ -1,13 +1,28 @@
 package dataloader
 
 import (
-	"errors"
 	"fmt"
 	"sync"
 	"time"
 )
 
-var NotFound = errors.New("not found")
+type Error[K comparable] interface {
+	error
+	Key() K
+}
+
+type keyError[K comparable] struct {
+	msg string
+	key K
+}
+
+func (k *keyError[K]) Error() string {
+	return fmt.Sprintf("%s (%v)", k.msg, k.key)
+}
+
+func (k *keyError[K]) Key() K {
+	return k.key
+}
 
 type result[T any] struct {
 	value T
@@ -54,6 +69,36 @@ func (l *Loader[K, V]) Load(key K) (V, error) {
 	l.enqueue(key, ch)
 	res := <-ch
 	return res.value, res.err
+}
+
+func (l *Loader[K, V]) LoadMany(keys ...K) ([]V, []error) {
+	ret := make([]V, 0, len(keys))
+	var errs []error
+	var mu sync.Mutex
+
+	var wg sync.WaitGroup
+	wg.Add(len(keys))
+	for i, k := range keys {
+		go func(i int, k K) {
+			defer wg.Done()
+			ch := make(chan *result[V], 1)
+			defer close(ch)
+
+			l.enqueue(k, ch)
+			res := <-ch
+
+			mu.Lock()
+			defer mu.Unlock()
+
+			if res.err != nil {
+				errs = append(errs, res.err)
+				return
+			}
+			ret = append(ret, res.value)
+		}(i, k)
+	}
+	wg.Wait()
+	return ret, errs
 }
 
 func (l *Loader[K, V]) enqueue(k K, ch chan *result[V]) {
@@ -107,10 +152,13 @@ func (l *Loader[K, V]) fetch() {
 
 	// handle the requests with no result
 	if len(l.tasks) > 0 {
-		res := &result[V]{
-			err: NotFound,
-		}
 		for k, chans := range l.tasks {
+			res := &result[V]{
+				err: &keyError[K]{
+					msg: "not found",
+					key: k,
+				},
+			}
 			for _, ch := range chans {
 				ch <- res
 			}
