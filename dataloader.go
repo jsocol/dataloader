@@ -19,7 +19,8 @@ type result[T any] struct {
 type Fetcher[K comparable, V any] func([]K) (map[K]V, error)
 
 type config struct {
-	delay time.Duration
+	delay    time.Duration
+	maxBatch int
 }
 
 // Loader is a generic implementation of the GraphQL "data loader" pattern that
@@ -59,7 +60,14 @@ func (l *Loader[K, V]) enqueue(k K, ch chan *result[V]) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 	l.tasks[k] = append(l.tasks[k], ch)
-	if l.tick == nil {
+
+	if l.config.maxBatch > 0 && len(l.tasks) >= l.config.maxBatch {
+		// if we've hit the max batch size, initiate a fetch immediately
+		go func() {
+			l.fetch()
+		}()
+	} else if l.tick == nil {
+		// if we aren't waiting yet, start waiting
 		l.tick = time.After(l.config.delay)
 		go func() {
 			<-l.tick

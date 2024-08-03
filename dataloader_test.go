@@ -167,3 +167,52 @@ func TestPartialNotFound(t *testing.T) {
 
 	assert.Equal(t, int64(1), calls.Load())
 }
+
+func TestMaxBatchSize(t *testing.T) {
+	var calls atomic.Int64
+	fetcher := func(keys []string) (map[string]int, error) {
+		calls.Add(1)
+		ret := make(map[string]int, len(keys))
+		for _, k := range keys {
+			ret[k] = len(k)
+		}
+		return ret, nil
+	}
+
+	l := dataloader.New(fetcher, dataloader.WithMaxBatch(1))
+
+	var wg sync.WaitGroup
+	wg.Add(4)
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("f")
+		assert.NoError(t, err)
+		assert.Equal(t, 1, v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("ab")
+		assert.NoError(t, err)
+		assert.Equal(t, 2, v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("ef")
+		assert.NoError(t, err)
+		assert.Equal(t, 2, v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("f")
+		assert.NoError(t, err)
+		assert.Equal(t, 1, v)
+	}()
+
+	wg.Wait()
+
+	assert.Equal(t, int64(4), calls.Load())
+}

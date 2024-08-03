@@ -9,3 +9,9 @@ func WithDelay(delay time.Duration) Option {
 		c.delay = delay
 	}
 }
+
+func WithMaxBatch(batchSize int) Option {
+	return func(c *config) {
+		c.maxBatch = batchSize
+	}
+}
