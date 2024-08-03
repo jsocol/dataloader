@@ -118,3 +118,52 @@ func TestComplexKeys(t *testing.T) {
 
 	assert.Equal(t, int64(1), calls.Load())
 }
+
+func TestPartialNotFound(t *testing.T) {
+	var calls atomic.Int64
+	fetcher := func(keys []string) (map[string]string, error) {
+		calls.Add(1)
+		assert.Len(t, keys, 4)
+		return map[string]string{
+			"foo": "yes-foo",
+			"bar": "yes-bar",
+		}, nil
+	}
+
+	l := restdataloader.New(fetcher)
+
+	var wg sync.WaitGroup
+	wg.Add(4)
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("foo")
+		assert.NoError(t, err)
+		assert.Equal(t, "yes-foo", v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("bar")
+		assert.NoError(t, err)
+		assert.Equal(t, "yes-bar", v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("baz")
+		assert.ErrorIs(t, err, restdataloader.NotFound)
+		assert.Empty(t, v)
+	}()
+
+	go func() {
+		defer wg.Done()
+		v, err := l.Load("quux")
+		assert.ErrorIs(t, err, restdataloader.NotFound)
+		assert.Empty(t, v)
+	}()
+
+	wg.Wait()
+
+	assert.Equal(t, int64(1), calls.Load())
+}

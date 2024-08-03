@@ -1,9 +1,13 @@
 package restdataloader
 
 import (
+	"errors"
+	"fmt"
 	"sync"
 	"time"
 )
+
+var NotFound = errors.New("not found")
 
 type result[T any] struct {
 	value T
@@ -82,7 +86,7 @@ func (l *Loader[K, V]) fetch() {
 	for k, v := range results {
 		chans := l.tasks[k]
 		if chans == nil {
-			panic("task missing key")
+			panic(fmt.Errorf("task key missing: %v", k))
 		}
 		res := &result[V]{
 			value: v,
@@ -90,9 +94,22 @@ func (l *Loader[K, V]) fetch() {
 		for _, ch := range chans {
 			ch <- res
 		}
+		delete(l.tasks, k)
 	}
 
-	l.tasks = make(map[K][]chan *result[V])
+	// handle the requests with no result
+	if len(l.tasks) > 0 {
+		res := &result[V]{
+			err: NotFound,
+		}
+		for k, chans := range l.tasks {
+			for _, ch := range chans {
+				ch <- res
+			}
+			delete(l.tasks, k)
+		}
+	}
+
 	l.tick = nil
 }
 
