@@ -140,6 +140,31 @@ GET /books?id=urn%3Aisbn%3A978-1098149482&id=urn%3Aisbn%3A978-1736417911&id=urn%
 GET /people?id=urn%3Aperson%3Atanya-reilly&id=urn%3Aperson%3Awill-larson
 ```
 
+### Partial Failures
+
+GraphQL is able to return partial errors for a given query if there are
+failures with some resources but not all. Similarly, restdataloader can handle
+the case of missing results for a given lookup batch.
+
+```graphql
+{
+  fake: book(id: "urn:isbn:978-notreal") {
+    title
+    authors {
+      name
+    }
+  }
+  phb: book(id: "urn:isbn:978-0786965601") {
+    id
+    title
+    authorIDs
+    authors {
+      name
+    }
+  }
+}
+```
+
 ## Directory Walkthrough
 
 This example contains the source code for both the GraphQL and resource servers,

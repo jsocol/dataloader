@@ -23,5 +23,10 @@
     "id": "urn:isbn:978-1942788331",
     "title": "Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations",
     "authors": ["urn:person:nicole-forsgren", "urn:person:jez-humble", "urn:person:gene-kim"]
+  },
+  {
+    "id": "urn:isbn:978-0786965601",
+    "title": "Dungeons & Dragons Player's Handbook (Core Rulebook, D&d Roleplaying Game)",
+    "authors": ["urn:person:jeremy-crawford", "urn:person:mike-mearls"]
   }
 ]

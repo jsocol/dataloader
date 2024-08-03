@@ -4,7 +4,7 @@ go 1.22.5
 
 require (
 	github.com/99designs/gqlgen v0.17.49
-	github.com/jsocol/rest-data-loader v0.0.0-20240803050648-e18f396aede7
+	github.com/jsocol/rest-data-loader v0.0.0-20240803191106-9d562812e8ab
 	github.com/jsocol/shutdown v0.1.1
 	github.com/vektah/gqlparser/v2 v2.5.16
 )

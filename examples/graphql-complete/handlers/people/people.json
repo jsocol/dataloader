@@ -22,5 +22,9 @@
   {
     "id": "urn:person:gene-kim",
     "name": "Gene Kim"
+  },
+  {
+    "id": "urn:person:jeremy-crawford",
+    "name": "Jeremy Crawford"
   }
 ]
