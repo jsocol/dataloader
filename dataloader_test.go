@@ -1,4 +1,4 @@
-package restdataloader_test
+package dataloader_test
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	restdataloader "github.com/jsocol/rest-data-loader"
+	"github.com/jsocol/dataloader"
 )
 
 func TestDebounce(t *testing.T) {
@@ -26,7 +26,7 @@ func TestDebounce(t *testing.T) {
 		return ret, nil
 	}
 
-	l := restdataloader.New(fetcher)
+	l := dataloader.New(fetcher)
 
 	var wg sync.WaitGroup
 	wg.Add(4)
@@ -81,7 +81,7 @@ func TestComplexKeys(t *testing.T) {
 		return ret, nil
 	}
 
-	l := restdataloader.New(fetcher)
+	l := dataloader.New(fetcher)
 
 	var wg sync.WaitGroup
 	wg.Add(4)
@@ -130,7 +130,7 @@ func TestPartialNotFound(t *testing.T) {
 		}, nil
 	}
 
-	l := restdataloader.New(fetcher)
+	l := dataloader.New(fetcher)
 
 	var wg sync.WaitGroup
 	wg.Add(4)
@@ -152,14 +152,14 @@ func TestPartialNotFound(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		v, err := l.Load("baz")
-		assert.ErrorIs(t, err, restdataloader.NotFound)
+		assert.ErrorIs(t, err, dataloader.NotFound)
 		assert.Empty(t, v)
 	}()
 
 	go func() {
 		defer wg.Done()
 		v, err := l.Load("quux")
-		assert.ErrorIs(t, err, restdataloader.NotFound)
+		assert.ErrorIs(t, err, dataloader.NotFound)
 		assert.Empty(t, v)
 	}()
 

@@ -1,12 +1,15 @@
-# restdataloader
+# dataloader
 
-`restdataloader` helps avoid N+1 lookups by collapsing a set of individual
-lookups by key into a single list lookup. For example, when loading several
-nested resources of the same type, or when loading nested resources in a list.
-It is inspired by the "Data Loader" pattern in GraphQL, but intended to be used
-in a wider range of situations.
+`dataloader` helps avoid N+1 lookups by collapsing a set of individual lookups
+by key into a single list lookup. For example, when loading several nested
+resources of the same type, or when loading nested resources in a list.  It is
+inspired by the "Data Loader" pattern in GraphQL, but intended to be used in a
+wider range of situations.
 
-## Quickstart
+See the [examples directory](./examples/) for more complete examples and
+demonstrations.
+
+## Quick Start
 
 ```go
 type Author struct {
@@ -49,7 +52,7 @@ func fetchAuthors(ids []string) (map[string]Author, error) {
 }
 
 func OnePlusN() {
-	authorLoader := restdataloader.New(fetchAuthors)
+	authorLoader := dataloader.New(fetchAuthors)
 
 	posts := GetRecentPosts()
 

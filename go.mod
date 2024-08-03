@@ -1,4 +1,4 @@
-module github.com/jsocol/rest-data-loader
+module github.com/jsocol/dataloader
 
 go 1.22.5
 

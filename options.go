@@ -1,4 +1,4 @@
-package restdataloader
+package dataloader
 
 import "time"
 
