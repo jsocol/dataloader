@@ -1,10 +1,10 @@
-module github.com/jsocol/rest-data-loader/examples/graphql-complete
+module github.com/jsocol/dataloader/examples/graphql-complete
 
 go 1.22.5
 
 require (
 	github.com/99designs/gqlgen v0.17.49
-	github.com/jsocol/rest-data-loader v0.0.0-20240803191106-9d562812e8ab
+	github.com/jsocol/dataloader v0.0.0-20240803220548-c3ea55cf404e
 	github.com/jsocol/shutdown v0.1.1
 	github.com/vektah/gqlparser/v2 v2.5.16
 )

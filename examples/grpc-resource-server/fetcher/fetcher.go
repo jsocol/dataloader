@@ -7,7 +7,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 
-	"github.com/jsocol/rest-data-loader/examples/grpc-resource-server/proto"
+	"github.com/jsocol/dataloader/examples/grpc-resource-server/proto"
 )
 
 type bookRecord struct {

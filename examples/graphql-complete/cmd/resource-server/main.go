@@ -9,9 +9,9 @@ import (
 
 	"github.com/jsocol/shutdown"
 
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/handlers/books"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/handlers/people"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/shared/middleware"
+	"github.com/jsocol/dataloader/examples/graphql-complete/handlers/books"
+	"github.com/jsocol/dataloader/examples/graphql-complete/handlers/people"
+	"github.com/jsocol/dataloader/examples/graphql-complete/shared/middleware"
 )
 
 const (

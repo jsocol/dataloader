@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/handlers"
+	"github.com/jsocol/dataloader/examples/graphql-complete/handlers"
 )
 
 //go:embed people.json

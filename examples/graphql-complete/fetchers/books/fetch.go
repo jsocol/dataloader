@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/fetchers"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/graph/model"
+	"github.com/jsocol/dataloader/examples/graphql-complete/fetchers"
+	"github.com/jsocol/dataloader/examples/graphql-complete/graph/model"
 )
 
 // define some internal types for books.fetcher

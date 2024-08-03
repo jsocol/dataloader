@@ -1,10 +1,10 @@
-module github.com/jsocol/rest-data-loader/examples/grpc-resource-server
+module github.com/jsocol/dataloader/examples/grpc-resource-server
 
 go 1.22.5
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
-	github.com/jsocol/rest-data-loader v0.0.0-20240803193520-86f6f001e841
+	github.com/jsocol/dataloader v0.0.0-20240803220548-c3ea55cf404e
 	github.com/jsocol/shutdown v0.1.1
 	google.golang.org/grpc v1.65.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1

@@ -9,13 +9,13 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	restdataloader "github.com/jsocol/rest-data-loader"
+	"github.com/jsocol/dataloader"
 	"github.com/jsocol/shutdown"
 
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/fetchers/books"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/fetchers/people"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/graph"
-	"github.com/jsocol/rest-data-loader/examples/graphql-complete/shared/middleware"
+	"github.com/jsocol/dataloader/examples/graphql-complete/fetchers/books"
+	"github.com/jsocol/dataloader/examples/graphql-complete/fetchers/people"
+	"github.com/jsocol/dataloader/examples/graphql-complete/graph"
+	"github.com/jsocol/dataloader/examples/graphql-complete/shared/middleware"
 )
 
 const (
@@ -48,8 +48,8 @@ func main() {
 	bookFetcher := books.New(resourceAddr)
 
 	resolver := &graph.Resolver{
-		People: restdataloader.New(peopleFetcher.Fetch),
-		Books:  restdataloader.New(bookFetcher.Fetch),
+		People: dataloader.New(peopleFetcher.Fetch),
+		Books:  dataloader.New(bookFetcher.Fetch),
 	}
 
 	gqlsrv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: resolver}))

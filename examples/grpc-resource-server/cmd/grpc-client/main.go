@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/jsocol/rest-data-loader/examples/grpc-resource-server/proto"
+	"github.com/jsocol/dataloader/examples/grpc-resource-server/proto"
 )
 
 const defaultAddr = "localhost:50051"

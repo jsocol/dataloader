@@ -1,6 +1,6 @@
 # Example: GraphQL and Resource Servers
 
-In this example, restdataloader is used to reduce the risk of duplicative or N+1
+In this example, dataloader is used to reduce the risk of duplicative or N+1
 queries between a GraphQL server (built from [gqlgen][gqlgen]) and a toy
 resource server that implements list endpoints that support multiple IDs as
 inputs.
@@ -34,7 +34,7 @@ use the playground to explore the queries available.
 
 Naive implementations of GraphQL resolvers can end up making separate requests
 to resource servers for each, potentially nested or duplicated, resource
-returned by the query. To see how restdataloader collapses these individual
+returned by the query. To see how dataloader collapses these individual
 requests, try this query:
 
 ```graphql
@@ -64,10 +64,10 @@ authors in one request.
 ### Collapsing Across Queries
 
 One risk of GraphQL is that a single graph query can result in several backend
-lookups due to the structure of the query. In this example, constructing a query
-that looks up two books results in two concurrent calls to the Book resolver,
-which typically means two requests to the book resource server. Using
-restdataloader, we're able to collapse concurrent requests _and_ the nested
+lookups due to the structure of the query. In this example, constructing a
+query that looks up two books results in two concurrent calls to the Book
+resolver, which typically means two requests to the book resource server. Using
+dataloader, we're able to collapse concurrent requests _and_ the nested
 resource requests.
 
 ```graphql
@@ -96,12 +96,12 @@ GET /books?id=urn%3Aisbn%3A978-1942788331&id=urn%3Aisbn%3A978-1736417911
 GET /people?id=urn%3Aperson%3Anicole-forsgren&id=urn%3Aperson%3Ajez-humble&id=urn%3Aperson%3Agene-kim&id=urn%3Aperson%3Atanya-reilly&id=urn%3Aperson%3Awill-larson
 ```
 
-restdataloader turns up to 7 separate requests (2 for books and 5 for authors)
+dataloader turns up to 7 separate requests (2 for books and 5 for authors)
 into one request per resource type.
 
 ### Deduplication
 
-A consequence of how restdataloader collapses requests is that individual
+A consequence of how dataloader collapses requests is that individual
 resources can be reused across concurrent requests (even potentially across
 concurrent users)! In this example, we have three books with a total of two
 authors across them.
@@ -143,7 +143,7 @@ GET /people?id=urn%3Aperson%3Atanya-reilly&id=urn%3Aperson%3Awill-larson
 ### Partial Failures
 
 GraphQL is able to return partial errors for a given query if there are
-failures with some resources but not all. Similarly, restdataloader can handle
+failures with some resources but not all. Similarly, dataloader can handle
 the case of missing results for a given lookup batch.
 
 ```graphql
@@ -182,13 +182,13 @@ default layout of a [gqlgen][gqlgen] project.
 
 - `graph/` contains the generated code and resolver implementations. The **most
   important thing to note** is that the resolvers in `graph/schema.resolvers.go`
-  use restdataloader to load data _in parallel_. Serial requests cannot be
+  use dataloader to load data _in parallel_. Serial requests cannot be
   collapsed.
 - `schema/` contains the GraphQL schema definition used to generate the server
   code. If you make any changes in `schema`, re-run `go run
   github.com/99designs/gqlgen generate` in the root of this example.
-- `fetchers/` contains the required fetching implementation that, given a set of
-  unique IDs provided by restdataloader, makes a single request to the
+- `fetchers/` contains the required fetching implementation that, given a set
+  of unique IDs provided by dataloader, makes a single request to the
   appropriate resource server.
 - `tools.go` ensures that the correct version of gqlgen is used.
 - `gqlgen.yml` is the configuration for gqlgen.

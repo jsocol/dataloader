@@ -8,15 +8,15 @@ import (
 	"log/slog"
 	"net"
 
-	restdataloader "github.com/jsocol/rest-data-loader"
+	"github.com/jsocol/dataloader"
 	"github.com/jsocol/shutdown"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	_ "modernc.org/sqlite"
 
-	"github.com/jsocol/rest-data-loader/examples/grpc-resource-server/fetcher"
-	"github.com/jsocol/rest-data-loader/examples/grpc-resource-server/proto"
-	"github.com/jsocol/rest-data-loader/examples/grpc-resource-server/server"
+	"github.com/jsocol/dataloader/examples/grpc-resource-server/fetcher"
+	"github.com/jsocol/dataloader/examples/grpc-resource-server/proto"
+	"github.com/jsocol/dataloader/examples/grpc-resource-server/server"
 )
 
 const (
@@ -72,7 +72,7 @@ func main() {
 
 	s := grpc.NewServer(grpc.ChainUnaryInterceptor())
 	srv := &server.Server{
-		Books: restdataloader.New(bookFetcher.Fetch),
+		Books: dataloader.New(bookFetcher.Fetch),
 	}
 	proto.RegisterBookServiceServer(s, srv)
 

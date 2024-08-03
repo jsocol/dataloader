@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/jsocol/rest-data-loader/examples/grpc-resource-server/proto";
+option go_package = "github.com/jsocol/dataloader/examples/grpc-resource-server/proto";
 
 package books;
 

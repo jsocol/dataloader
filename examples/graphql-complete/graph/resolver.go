@@ -1,6 +1,6 @@
 package graph
 
-import "github.com/jsocol/rest-data-loader/examples/graphql-complete/graph/model"
+import "github.com/jsocol/dataloader/examples/graphql-complete/graph/model"
 
 // This file will not be regenerated automatically.
 //

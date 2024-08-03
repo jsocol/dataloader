@@ -22,8 +22,8 @@ github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWm
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/hashicorp/golang-lru/v2 v2.0.7 h1:a+bsQ5rvGLjzHuww6tVxozPZFVghXaHOwFs4luLUK2k=
 github.com/hashicorp/golang-lru/v2 v2.0.7/go.mod h1:QeFd9opnmA6QUJc5vARoKUSoFhyfM2/ZepoAG6RGpeM=
-github.com/jsocol/rest-data-loader v0.0.0-20240803191106-9d562812e8ab h1:BXuMFzsBwXJaHx9AiiU0hM8udZV2oY1Kath6qPjR0ng=
-github.com/jsocol/rest-data-loader v0.0.0-20240803191106-9d562812e8ab/go.mod h1:PzCOEbXxsFxasuA7whYQldKLUWmtQnK0mYyTxXAZQ+E=
+github.com/jsocol/dataloader v0.0.0-20240803220548-c3ea55cf404e h1:xnVL3CzPhdUgWLZLS70uoBHYWgv/ugxJQHzfgCe9Gw0=
+github.com/jsocol/dataloader v0.0.0-20240803220548-c3ea55cf404e/go.mod h1:PY8OP+9iMB3B8aCkk8Vumt4mr8utZirIDa/Djcb/GaA=
 github.com/jsocol/shutdown v0.1.1 h1:+ymTG+qQqUBr24c82z6fwH3T7ceRjrFJW8Tn1+WymxE=
 github.com/jsocol/shutdown v0.1.1/go.mod h1:p3VNiXRKl3+0NkmcqU+2vyraS8GSlMp5Oh0YmdBy0ZM=
 github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=
