@@ -1,0 +1,32 @@
+[
+  {
+    "id": "urn:isbn:978-1098149482",
+    "title": "The Engineering Executive's Primer: Impactful Technical Leadership",
+    "authors": ["urn:person:will-larson"]
+  },
+  {
+    "id": "urn:isbn:978-1736417911",
+    "title": "Staff Engineer: Leadership beyond the management track",
+    "authors": ["urn:person:will-larson", "urn:person:tanya-reilly"]
+  },
+  {
+    "id": "urn:isbn:978-1098118730",
+    "title": "The Staff Engineer's Path: A Guide for Individual Contributors Navigating Growth and Change",
+    "authors": ["urn:person:tanya-reilly"]
+  },
+  {
+    "id": "urn:isbn:978-1491973899",
+    "title": "The Manager's Path: A Guide for Tech Leaders Navigating Growth & Change",
+    "authors": ["urn:person:camille-fournier"]
+  },
+  {
+    "id": "urn:isbn:978-1942788331",
+    "title": "Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations",
+    "authors": ["urn:person:nicole-forsgren", "urn:person:jez-humble", "urn:person:gene-kim"]
+  },
+  {
+    "id": "urn:isbn:978-0786965601",
+    "title": "Dungeons & Dragons Player's Handbook (Core Rulebook, D&d Roleplaying Game)",
+    "authors": ["urn:person:jeremy-crawford", "urn:person:mike-mearls"]
+  }
+]

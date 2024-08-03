@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/jsocol/rest-data-loader/examples/grpc-resource-server/proto";
+
+package books;
+
+service BookService {
+  rpc GetBook(GetBookRequest) returns (Book);
+}
+
+message GetBookRequest {
+  string id = 1;
+}
+
+message Book {
+  string id = 1;
+  string title = 2;
+  repeated string authors = 3;
+}
