@@ -1,0 +1,26 @@
+[
+  {
+    "id": "urn:person:will-larson",
+    "name": "Will Larson"
+  },
+  {
+    "id": "urn:person:tanya-reilly",
+    "name": "Tanya Reilly"
+  },
+  {
+    "id": "urn:person:camille-fournier",
+    "name": "Camille Fournier"
+  },
+  {
+    "id": "urn:person:nicole-forsgren",
+    "name": "Nicole Forsgren, PhD"
+  },
+  {
+    "id": "urn:person:jez-humble",
+    "name": "Jez Humble"
+  },
+  {
+    "id": "urn:person:gene-kim",
+    "name": "Gene Kim"
+  }
+]

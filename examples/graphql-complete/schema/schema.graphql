@@ -1,0 +1,30 @@
+directive @goField(
+	forceResolver: Boolean
+	name: String
+	omittable: Boolean
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+schema {
+  query: Query
+}
+
+type Query {
+  person(id: ID!): Person
+  book(id: ID!): Book
+}
+
+type Person {
+  id: ID!
+  name: String!
+}
+
+type Book {
+  id: ID!
+  title: String!
+  authorIDs: [ID!]
+  authors: [Person!]
+    @goField(forceResolver: true)
+  editorIDs: [ID!]
+  editors: [Person!]
+    @goField(forceResolver: true)
+}
